@@ -1,0 +1,22 @@
+
+{
+  "simples": [
+    {
+      "title":"Technology",
+      "icon":"laptop",
+      "count":"182"
+
+    },
+    {
+      "title":"Audio",
+      "icon":"headphones",
+      "count":"98"
+    },
+    {
+      "title":"Kitchen gear",
+      "icon":"coffee",
+      "count":"154"
+    }
+  ]
+}
+
