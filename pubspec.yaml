@@ -28,4 +28,5 @@ flutter:
   assets:
     - assets/google_fonts/
     - assets/data/Simple.json
+    - assets/data/Standard.json
 

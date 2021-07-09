@@ -2,7 +2,9 @@ import 'dart:convert';
 
 import 'package:cards/Helper/Global.dart';
 import 'package:cards/Pages/SimpleList.dart';
+import 'package:cards/Pages/StandardList.dart';
 import 'package:cards/Utils/Classes.dart';
+import 'package:cards/Widgets/Title_Description.dart';
 import 'package:flutter/services.dart';
 
 class HomePage extends StatefulWidget {
@@ -10,23 +12,10 @@ class HomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<HomePage> {
+class _MyHomePageState extends State<HomePage> with TickerProviderStateMixin {
   List<Simples> simples = [];
-  // Fetch content from the json file
-  Future<void> readJsonSimples() async {
-    final String response =
-        await rootBundle.loadString('assets/data/Simple.json');
-    final data = await json.decode(response);
-    setState(() {
-      final List<dynamic> _items = data["simples"];
-      simples = _items.map((item) => Simples.fromMap(item)).toList();
-    });
-  }
-  @override
-  void initState() {
-    readJsonSimples();
-    super.initState();
-  }
+  List<Standard> standards = [];
+  AnimationController? animationController;
 
   @override
   Widget build(BuildContext context) {
@@ -38,33 +27,57 @@ class _MyHomePageState extends State<HomePage> {
           children: [
             SizedBox(height: 30),
             //-------------Simple Cards
-            Padding(
-              padding: EdgeInsets.all(25),
-              child: Text("Simple",
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.montserrat(
-                      color: Cst.colorTxt,
-                      fontSize: 40,
-                      fontWeight: FontWeight.w600,
-                      fontStyle: FontStyle.normal)),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 45, right: 45),
-              child: SelectableText(
-                  "These ideas are great when you need simple cards without photos.",
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.montserrat(
-                      color: Cst.colorTxt,
-                      fontSize: 15,
-                      height: 1.5,
-                      fontWeight: FontWeight.w400,
-                      fontStyle: FontStyle.normal)),
-            ),
-            SimpelsList(simples: simples),
-
+            TitleDesc(
+                title: "Simple",
+                des:
+                    "These ideas are great when you need simple cards without photos."),
+            SimpelsList(
+                simples: simples, animationController: animationController),
+            //------------Standard Cards
+            TitleDesc(
+                title: "Standard",
+                des:
+                    "These popular ideas are useful when you need to use photos."),
+            StandardList(standards: standards, animationController: animationController)
           ],
         ),
       ),
     );
+  }
+
+  // Fetch content from the Simples json file
+  Future<void> readJsonSimples() async {
+    final String response =
+        await rootBundle.loadString('assets/data/Simple.json');
+    final data = await json.decode(response);
+    setState(() {
+      final List<dynamic> _items = data["simples"];
+      simples = _items.map((item) => Simples.fromMap(item)).toList();
+    });
+  } // Fetch content from the Simples json file
+
+  Future<void> readJsonStandard() async {
+    final String response =
+        await rootBundle.loadString('assets/data/Standard.json');
+    final data = await json.decode(response);
+    setState(() {
+      final List<dynamic> _items = data["standard"];
+      standards = _items.map((item) => Standard.fromMap(item)).toList();
+    });
+  }
+
+  @override
+  void initState() {
+    animationController = AnimationController(
+        duration: const Duration(milliseconds: 2000), vsync: this);
+    readJsonStandard();
+    readJsonSimples();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    animationController?.dispose();
+    super.dispose();
   }
 }

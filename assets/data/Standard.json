@@ -1,0 +1,21 @@
+{
+  "standard": [
+    {
+      "title":"Forest trip",
+      "price":"$199",
+      "image":"https://i.imgur.com/NYWVSuF.jpg"
+
+    },
+    {
+      "title":"Tropical paradise",
+      "price":"$999",
+      "image":"https://i.imgur.com/dW6Lesg.jpg"
+    },
+    {
+      "title":"Mountain retreat",
+      "price":"$899",
+      "image":"https://i.imgur.com/C8bqHSY.jpg"
+    }
+  ]
+}
+
