@@ -1,6 +1,7 @@
 import 'package:cards/Helper/Global.dart';
 import 'package:cards/Utils/Classes.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:vibration/vibration.dart';
 
 class SimpleCard extends StatelessWidget {
   final Simples? simple;
@@ -36,7 +37,9 @@ class SimpleCard extends StatelessWidget {
               child: Material(
                 color: Colors.transparent,
                 child: InkWell(
-                  onTap: () {},
+                  onLongPress: ()  {
+                    Vibration.vibrate(duration: 50, amplitude: 24, intensities: [1, 255]);
+                  },
                   child: index == 2
                       ? thirdItem()
                       : Column(

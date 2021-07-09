@@ -1,9 +1,13 @@
 import 'dart:ui';
-
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cards/Helper/Global.dart';
 import 'package:cards/Utils/Classes.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:octo_image/octo_image.dart';
+import 'package:vibration/vibration.dart';
 
 class StandardCard extends StatelessWidget {
   final Standard? standard;
@@ -39,7 +43,10 @@ class StandardCard extends StatelessWidget {
               child: Material(
                 color: Colors.transparent,
                 child: InkWell(
-                  onTap: () {},
+                  onLongPress: () {
+                    Vibration.vibrate(
+                        duration: 50, amplitude: 24, intensities: [1, 255]);
+                  },
                   child: index == 2
                       ? thirdItem()
                       : Column(
@@ -50,7 +57,18 @@ class StandardCard extends StatelessWidget {
                                   height: index == 0 ? 130 : 150,
                                   decoration: BoxDecoration(
                                     image: DecorationImage(
-                                      image: NetworkImage(standard!.image!),
+                                      image: OctoImage(
+                                              image: CachedNetworkImageProvider(
+                                                  standard!.image!),
+                                              progressIndicatorBuilder:
+                                                  (context, image) => Center(
+                                                      child:
+                                                          CupertinoActivityIndicator()),
+                                              errorBuilder: OctoError.icon(
+                                                  color: Colors.red,
+                                                  icon: LineIcons.imageAlt),
+                                              fit: BoxFit.cover)
+                                          .image,
                                       fit: BoxFit.cover,
                                     ),
                                   ),
@@ -79,9 +97,13 @@ class StandardCard extends StatelessWidget {
                                                 borderRadius:
                                                     BorderRadius.circular(10),
                                               ),
-                                              child: Icon(LineIcons.bookmarkAlt,
-                                                  color: Cst.lightBG
-                                                      .withOpacity(0.9)),
+                                              child: Padding(
+                                                padding: const EdgeInsets.all(9.5),
+                                                child: SvgPicture.asset(
+                                                  'assets/icons/bookmark.svg',
+                                                  color: Cst.lightColor.withOpacity(0.8),
+                                                ),
+                                              ),
                                             ),
                                           ),
                                         ),
@@ -167,7 +189,14 @@ class StandardCard extends StatelessWidget {
           width: 70,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: NetworkImage(standard!.image!),
+              image: OctoImage(
+                image: CachedNetworkImageProvider(standard!.image!),
+                errorBuilder:
+                    OctoError.icon(color: Colors.red, icon: LineIcons.imageAlt),
+                progressIndicatorBuilder: (context, image) =>
+                    Center(child: CupertinoActivityIndicator()),
+                fit: BoxFit.cover,
+              ).image,
               fit: BoxFit.cover,
             ),
           ),
@@ -209,9 +238,13 @@ class StandardCard extends StatelessWidget {
         Align(
           alignment: Alignment.bottomRight,
           child: IconButton(
-              icon: Icon(LineIcons.bookmark),
+              icon: SvgPicture.asset(
+                'assets/icons/bookmark.svg',
+                color: Cst.softColor.withOpacity(0.8),
+                width: 20,
+              ),
               tooltip: "Save",
-              onPressed: (){
+              onPressed: () {
                 print("Bookmark Clicked");
               },
               color: Cst.softColor.withOpacity(0.9)),

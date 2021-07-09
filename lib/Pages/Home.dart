@@ -1,6 +1,6 @@
 import 'dart:convert';
-
 import 'package:cards/Helper/Global.dart';
+import 'package:cards/Pages/AsGbList.dart';
 import 'package:cards/Pages/SimpleList.dart';
 import 'package:cards/Pages/StandardList.dart';
 import 'package:cards/Utils/Classes.dart';
@@ -15,6 +15,7 @@ class HomePage extends StatefulWidget {
 class _MyHomePageState extends State<HomePage> with TickerProviderStateMixin {
   List<Simples> simples = [];
   List<Standard> standards = [];
+  List<AsGb> asgb= [];
   AnimationController? animationController;
 
   @override
@@ -38,13 +39,28 @@ class _MyHomePageState extends State<HomePage> with TickerProviderStateMixin {
                 title: "Standard",
                 des:
                     "These popular ideas are useful when you need to use photos."),
-            StandardList(standards: standards, animationController: animationController)
+            StandardList(standards: standards, animationController: animationController),
+            //------------Photo as BG Cards
+            TitleDesc(
+                title: "Photo as BG",
+                des: "You can also use photo as backgrounds for a more immersive experience."),
+            AsGbList(asGb: asgb, animationController: animationController),
+
           ],
         ),
       ),
     );
   }
-
+  // Fetch content from the GB json file
+  Future<void> readJsonAsGb() async {
+    final String response =
+    await rootBundle.loadString('assets/data/AsBG.json');
+    final data = await json.decode(response);
+    setState(() {
+      final List<dynamic> _items = data["asBg"];
+      asgb = _items.map((item) => AsGb.fromMap(item)).toList();
+    });
+  }
   // Fetch content from the Simples json file
   Future<void> readJsonSimples() async {
     final String response =
@@ -54,8 +70,8 @@ class _MyHomePageState extends State<HomePage> with TickerProviderStateMixin {
       final List<dynamic> _items = data["simples"];
       simples = _items.map((item) => Simples.fromMap(item)).toList();
     });
-  } // Fetch content from the Simples json file
-
+  }
+  // Fetch content from the Standard json file
   Future<void> readJsonStandard() async {
     final String response =
         await rootBundle.loadString('assets/data/Standard.json');
@@ -70,6 +86,7 @@ class _MyHomePageState extends State<HomePage> with TickerProviderStateMixin {
   void initState() {
     animationController = AnimationController(
         duration: const Duration(milliseconds: 2000), vsync: this);
+    readJsonAsGb();
     readJsonStandard();
     readJsonSimples();
     super.initState();

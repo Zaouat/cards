@@ -1,0 +1,21 @@
+{
+  "asBg": [
+    {
+      "title":"Jazz",
+      "count":"172",
+      "image":"https://i.imgur.com/CO2EDOO.jpg"
+
+    },
+    {
+      "title":"Rock",
+      "count":"192",
+      "image":"https://i.imgur.com/pWluqqs.jpg"
+    },
+    {
+      "title":"Rap",
+      "count":"542",
+      "image":"https://i.imgur.com/faQV4hh.jpg"
+    }
+  ]
+}
+

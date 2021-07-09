@@ -1,7 +1,6 @@
 
 //Packages
 export 'package:flutter/material.dart';
-export 'package:auto_animated/auto_animated.dart';
 export 'package:get_storage/get_storage.dart';
 export 'package:get/get_navigation/src/root/get_material_app.dart';
 export 'package:google_fonts/google_fonts.dart';

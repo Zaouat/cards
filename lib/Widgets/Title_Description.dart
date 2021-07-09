@@ -11,7 +11,7 @@ class TitleDesc extends StatelessWidget {
       children: [
         Padding(
           padding: EdgeInsets.all(20),
-          child: Text(title!,
+          child: Text(title!.toUpperCase(),
               textAlign: TextAlign.center,
               style: GoogleFonts.montserrat(
                   color: Cst.colorTxt,
