@@ -9,9 +9,10 @@ class TitleDesc extends StatelessWidget {
     // TODO: implement build
     return Column(
       children: [
+        SizedBox(height: 40),
         Padding(
           padding: EdgeInsets.all(20),
-          child: Text(title!.toUpperCase(),
+          child: Text(title!,
               textAlign: TextAlign.center,
               style: GoogleFonts.montserrat(
                   color: Cst.colorTxt,

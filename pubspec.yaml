@@ -30,8 +30,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/google_fonts/
-    - assets/data/Simple.json
-    - assets/data/Standard.json
-    - assets/data/AsBG.json
+    - assets/data/
+    - assets/data/Buttons.json
     - assets/icons/
 

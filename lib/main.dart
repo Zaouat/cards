@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
         statusBarIconBrightness: Brightness.dark,
         systemNavigationBarColor: Cst.lightBG,
         systemNavigationBarIconBrightness: Brightness.dark,
-        statusBarBrightness: Brightness.light,);
+        statusBarBrightness: Brightness.light);
     SystemChrome.setSystemUIOverlayStyle(style);
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,

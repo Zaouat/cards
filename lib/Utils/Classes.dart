@@ -100,3 +100,37 @@ class AsGb {
   factory AsGb.fromJson(String source) =>
       AsGb.fromMap(json.decode(source));
 }
+
+
+class Buttons {
+  String? title;
+  String? image;
+  String? count;
+  Buttons({
+    this.title,
+    this.image,
+    this.count,
+
+  });
+
+  Map<String, dynamic> toMap() {
+    return {
+      'title': title,
+      'icon': image,
+      'count': count,
+    };
+  }
+
+  factory Buttons.fromMap(Map<String, dynamic> map) {
+    return Buttons(
+      title: map['title'],
+      image: map['image'],
+      count: map['count'],
+    );
+  }
+
+  String toJson() => json.encode(toMap());
+
+  factory Buttons.fromJson(String source) =>
+      Buttons.fromMap(json.decode(source));
+}
