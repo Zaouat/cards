@@ -7,7 +7,7 @@ import 'package:cards/Pages/StandardList.dart';
 import 'package:cards/Utils/Classes.dart';
 import 'package:cards/Widgets/Title_Description.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -25,28 +25,11 @@ class _MyHomePageState extends State<HomePage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Cst.lightBG,
-
       body: Center(
         child: ListView(
           physics: BouncingScrollPhysics(),
           children: [
-            Align(
-              alignment: Alignment.topRight,
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: IconButton(
-                    icon: SvgPicture.asset(
-                      'assets/icons/info.svg',
-                      color: Cst.primaryColor,
-                      width: 22,
-                    ),
-                    tooltip: "about",
-                    onPressed: () {
 
-                    },
-                    color: Cst.softColor.withOpacity(0.9)),
-              ),
-            ),
             //-------------Simple Cards
             TitleDesc(
                 title: "Simple",
@@ -70,6 +53,51 @@ class _MyHomePageState extends State<HomePage> with TickerProviderStateMixin {
                 title: "Buttons",
                 des: "In certain scenarios, using buttons on cards can improve the UX."),
             ButtonsList(buttons: buttons, animationController: animationController),
+            SizedBox(height: 30),
+            Center(
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(15),
+                child: Material(
+                  color: Colors.transparent,
+                  child: InkWell(
+                    onTap: ()async{
+                      await canLaunch("https://github.com/devllopa")
+                          ? await launch("https://github.com/devllopa")
+                          : throw 'Could not launch this Url';
+
+                    },
+                    child: Container(
+                      width: MediaQuery.of(context).size.width*0.5,
+                        decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                          color: Cst.primaryColor.withOpacity(0.1),
+
+                        ),
+                      padding: EdgeInsets.all(10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("Created by ",
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.montserrat(
+                                  color: Cst.colorTxt,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w600,
+                                  fontStyle: FontStyle.normal)),
+                          Text("DEVLOPA.",
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.montserrat(
+                                  color: Cst.primaryColor,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w800,
+                                  fontStyle: FontStyle.normal)),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
             SizedBox(height: 30),
           ],
         ),
@@ -120,7 +148,7 @@ class _MyHomePageState extends State<HomePage> with TickerProviderStateMixin {
   @override
   void initState() {
     animationController = AnimationController(
-        duration: const Duration(milliseconds: 2000), vsync: this);
+        duration: const Duration(milliseconds: 3500), vsync: this);
     readJsonButtons();
     readJsonAsGb();
     readJsonStandard();

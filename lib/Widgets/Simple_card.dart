@@ -37,8 +37,7 @@ class SimpleCard extends StatelessWidget {
               child: Material(
                 color: Colors.transparent,
                 child: InkWell(
-                  onLongPress: ()  {
-                    Vibration.vibrate(duration: 50, amplitude: 24, intensities: [1, 255]);
+                  onTap: ()  {
                   },
                   child: index == 2
                       ? thirdItem()

@@ -22,6 +22,7 @@ class MyApp extends StatelessWidget {
     SystemChrome.setSystemUIOverlayStyle(style);
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
+
       title: Cst.appName,
       initialRoute: "/",
       routes: {
